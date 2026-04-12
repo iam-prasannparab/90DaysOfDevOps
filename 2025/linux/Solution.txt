@@ -1,0 +1,46 @@
+1️⃣ User & Group Management
+Learn about Linux users, groups, and permissions (/etc/passwd, /etc/group).
+Task:
+Create a user devops_user and add them to a group devops_team.
+- Created user <devops_user> using sudo useradd devops_user command.
+- Created group <devops_team> using sudo groupadd devops_team command.
+- Added <devops_user> to <devops_team> by running command sudo usermod -aG devops_team devops_user 
+
+Set a password and grant sudo access.
+- set password using command sudo passwd devops_user
+- grant sudo access using sudo usermod -aG sudo devops_user
+
+Restrict SSH login for certain users in /etc/ssh/sshd_config.
+- I did sudo vim /etc/ssh/sshd_config
+- Then added the line AllowUsers devops_user (This will allow devops_user for ssh)
+- If i want to restrict users I need to add Denyuser username
+
+2️⃣ File & Directory Permissions
+Task:
+Create /devops_workspace and a file project_notes.txt.
+- Created a directory named <devops_workspace> using mkdir command and then in that directory created a file named <project_notes.txt>.
+Set permissions:
+Owner can edit, group can read, others have no access.
+<chmod 640 project_notes.txt> to give permissions where 6 means read and write, 4 means read and 0 means nothing. Henche owner can edit,
+group can read and other have no access.
+Use ls -l to verify permissions.
+used <ls -l> to verify the permissions : -rw-r-----
+
+3️⃣ Log File Analysis with AWK, Grep & Sed
+Logs are crucial in DevOps! You’ll analyze logs using the Linux_2k.log file from LogHub (GitHub Repo).
+
+Task:
+Download the log file from the repository.
+- Downloaded logs from loghub repository on github.
+
+Extract insights using commands:
+Use grep to find all occurrences of the word "authetication failure".
+- Used <grep -i "authetication failure" app.log> to find all occurrences of word "authentication failure".
+
+Use awk to extract timestamps and log levels.
+- Using < awk '/authentication failure/ {print $3  $6 $7}' app.log> i printed timestamps with log levels.
+
+Use sed to replace all IP addresses with [REDACTED] for security.
+- <grep "authentication failure" app.log | sed "s/218.188.2.4/[REDACTED]/g"> used this combination of grep and sed command to fulfill the task.
+
+Bonus: Find the most frequent log entry using awk or sort | uniq -c | sort -nr | head -10.
